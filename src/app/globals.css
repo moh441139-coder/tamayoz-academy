@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0a1414;
+  --tamayoz: #0b5e5e;
+  --tamayoz-neon: #4fe3c8;
+  --rahab: #04ae9f;
+  --rahab-violet: #6268b0;
+  color-scheme: dark;
+}
+
+html {
+  background: var(--bg);
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--bg);
+  color: #e6f5f2;
+  font-family: "Tajawal", system-ui, sans-serif;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(79, 227, 200, 0.35);
+}
+
+@layer components {
+  .glass {
+    @apply rounded-3xl border border-white/10 bg-night-700/70 backdrop-blur-xl;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 20px 50px -20px rgba(0, 0, 0, 0.7);
+  }
+  .neon-border {
+    position: relative;
+  }
+  .neon-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(79, 227, 200, 0.7), transparent 40%, transparent 60%, rgba(98, 104, 176, 0.7));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 font-bold transition active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-gradient-to-l from-tamayoz-neon to-rahab text-night-900 shadow-neon hover:brightness-110;
+  }
+  .btn-ghost {
+    @apply btn border border-white/15 bg-white/5 text-white hover:bg-white/10;
+  }
+  .btn-danger {
+    @apply btn bg-red-500/90 text-white hover:bg-red-500;
+  }
+  .input {
+    @apply w-full rounded-2xl border border-white/10 bg-night-900/70 px-4 py-3 text-base text-white placeholder:text-white/35 outline-none transition focus:border-tamayoz-neon/70 focus:ring-2 focus:ring-tamayoz-neon/25;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-white/70;
+  }
+  .text-neon {
+    color: var(--tamayoz-neon);
+    text-shadow: 0 0 18px rgba(79, 227, 200, 0.55);
+  }
+  .text-gradient {
+    @apply bg-gradient-to-l from-tamayoz-neon via-rahab to-rahab-violet bg-clip-text text-transparent;
+  }
+}
+
+/* ===== خلفية الملعب الليلي ===== */
+.stadium-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(79, 227, 200, 0.18), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 0% 0%, rgba(11, 94, 94, 0.45), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(98, 104, 176, 0.3), transparent 60%),
+    radial-gradient(ellipse 100% 60% at 50% 110%, rgba(4, 174, 159, 0.14), transparent 60%),
+    #0a1414;
+}
+
+.stadium-grid {
+  position: absolute;
+  inset: -50% -50% 0;
+  background-image:
+    linear-gradient(rgba(79, 227, 200, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 227, 200, 0.07) 1px, transparent 1px);
+  background-size: 56px 56px;
+  transform: perspective(600px) rotateX(62deg);
+  transform-origin: 50% 100%;
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent 70%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent 70%);
+}
+
+.floodlight {
+  position: absolute;
+  top: -20vh;
+  width: 40vw;
+  height: 120vh;
+  background: linear-gradient(to bottom, rgba(230, 255, 250, 0.1), transparent 70%);
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+.noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* بطاقة FIFA */
+.fifa-card {
+  clip-path: polygon(50% 0%, 100% 6%, 100% 88%, 50% 100%, 0% 88%, 0% 6%);
+}
+
+/* ملعب التشكيلة */
+.pitch {
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 10%, transparent 10% 20%),
+    radial-gradient(ellipse at 50% 50%, #127a55 0%, #0b5a42 55%, #073b2d 100%);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  .stadium-bg,
+  .no-print {
+    display: none !important;
+  }
+  html,
+  body {
+    background: #fff !important;
+    color: #0a1414 !important;
+  }
+}

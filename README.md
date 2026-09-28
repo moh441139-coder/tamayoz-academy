@@ -49,6 +49,16 @@ npm run dev
 
 ## النشر على Vercel (CLI بدون GitHub)
 
+### الطريقة السريعة
+
+```bash
+npm run deploy
+```
+
+السكربت يسجّل الدخول ويربط المشروع ويضيف `ADMIN_PASSWORD` و`SESSION_SECRET`، ويتحقق من ربط Redis وBlob، ثم يبني وينشر ويفحص `/api/health`.
+
+### الطريقة اليدوية
+
 ```bash
 npm i -g vercel
 vercel login
